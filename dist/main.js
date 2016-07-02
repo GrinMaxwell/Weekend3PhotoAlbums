@@ -9,6 +9,7 @@ var gapHTML = '<div class="gap"></div>';
 var buttonHTML = '<input type="button" class="album-button"/>';
 var pictureHTML = '<div class="picture"><img src=""/><h6 class="caption"></h6></div>';
 var $body = $('body');
+var renders = [];
 
 // var $grid = $('.grid').masonry({
 //   columnWidth: 10,
@@ -45,7 +46,8 @@ data.forEach(function(album, ia, arr) {
     $header.text(album.albumName);
     $albumMain.addClass('hide');
     $albumMain.removeClass('show');
-
+    renders.push(album.albumName);
+    console.log(renders);
 
     // $albumMain.children('.album').removeClass('tile');
 
@@ -60,7 +62,6 @@ data.forEach(function(album, ia, arr) {
       $picThumb.children('img').addClass('thumbnail');
       $picThumb.children('h4').text(picture.picName);
 
-      $picThumb.addClass('pic');
       $picThumb.addClass('show');
       $picThumb.addClass('grid-item');
       // $picThumb.addClass('tile');
@@ -82,6 +83,7 @@ data.forEach(function(album, ia, arr) {
         var $picture = $('pictureHTML');
         $picture.children('img').attr('src', picture.path);
         $picture.children('img').addClass('thumbnail');
+        $picThumb.children('h6').text(picture.caption);
 
       });
 

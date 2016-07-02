@@ -11,6 +11,7 @@
 6. finished the basics for the first page, started the interior of an album (all wrapped inside an `.on('click')` to render the pictures page)
 7. fiddled with different ways of formatting, first trying 'neat', then running into some issues (see issue 1) and then trying 'masonry' (see issue 2), ended up returning to 'neat'.
 8. finished building album view and the basics of the album view sidebar, then worked on building picture view (inside another `.on('click')`)
+9. decided to make an array 'renders' to keep track of which albums have already been rendered so that when returning through instead of re-rendering it can make it just reappear (with the 'show' class)
 
 ## Issues
 1. having issues with neat in SASS (tried `@include omega(4n)` on all tiles and then later an `if(i%4===0)` statement, no luck, both still always adding `.omega` to the first or second pic, not the fourth) because when I hid the albums I still had them in the same container as the pictures, so the albums would still count as children and throw off the omega count. Jess suggested I put them in entirely different containers, which containers I would then hide or show. Makes more semantic sense, too.

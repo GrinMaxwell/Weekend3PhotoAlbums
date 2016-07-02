@@ -5,3 +5,5 @@ dist/main.css.map
 images
 bourbon
 neat
+dist/masonry.pkgd.min.js
+app/masonry-docs/
