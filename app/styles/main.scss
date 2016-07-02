@@ -15,29 +15,42 @@ body{
 
 h1{
   @include span-columns(14);
+  width: 100%;
   text-align: center;
   color: #47A3DA;
 }
 li{
   list-style-type: none;
 }
-.container{
+.album-container{
   @include span-columns(12);
-  margin-left: 8%;
+  margin-left: 10%;
+  width: 80%;
 }
-.tile{
-  @include span-columns(3);
-  // @include omega(4n);
+.pic-container{
+  @include span-columns(9);
+  margin-left: 10%;
+  width: 80%;
+  clear: both;
 }
-.thumbnail{
-  width: 100%;
+.grid-item{
+  @include span-columns(4);
   float: left;
 }
+.picture-list{
+  width: 80%;
+  float: left;
+}
+
 h4{
   text-align: center;
   color: #47A3DA;
   clear: both;
   padding: 1rem 0;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .hide{
   display: none;
@@ -47,4 +60,24 @@ h4{
 }
 .omega{
   @include omega;
+}
+.row-first{
+  clear: both;
+}
+.sidebar{
+  float: right;
+  width: 10%;
+}
+.album-button{
+  float: right;
+  width: 100%;
+  background-color: #5F8CE2;
+  height: 3rem;
+  clear: both;
+  white-space: normal;
+  margin: 1rem 0;
+}
+.thumbnail{
+  width: 100%;
+  float: left;
 }
