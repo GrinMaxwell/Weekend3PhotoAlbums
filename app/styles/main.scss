@@ -1,5 +1,50 @@
+@import "../../bourbon/bourbon";
+$grid-columns: 14;
+@import "../../neat/neat";
+
+body{
+  background-color: #004484;
+}
+
 .app{
-  background-color: cadetblue;
-  height: 5rem;
+  @include outer-container(100%);
   width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+h1{
+  @include span-columns(14);
+  text-align: center;
+  color: #47A3DA;
+}
+li{
+  list-style-type: none;
+}
+.container{
+  @include span-columns(12);
+  margin-left: 8%;
+}
+.tile{
+  @include span-columns(3);
+  // @include omega(4n);
+}
+.thumbnail{
+  width: 100%;
+  float: left;
+}
+h4{
+  text-align: center;
+  color: #47A3DA;
+  clear: both;
+  padding: 1rem 0;
+}
+.hide{
+  display: none;
+}
+.show{
+  display: inline-block;
+}
+.omega{
+  @include omega;
 }
