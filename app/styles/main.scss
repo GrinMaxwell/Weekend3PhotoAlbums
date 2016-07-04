@@ -36,6 +36,11 @@ li{
 .grid-item{
   @include span-columns(4);
   float: left;
+  height: rem(200);
+  img{
+    height: rem(150);
+    overflow: hidden;
+  }
 }
 .picture-list{
   width: 80%;
@@ -76,6 +81,9 @@ h4{
   clear: both;
   white-space: normal;
   margin: 1rem 0;
+  &focus{
+    outline: none;
+  }
 }
 .thumbnail{
   width: 100%;

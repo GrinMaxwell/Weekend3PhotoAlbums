@@ -3,8 +3,8 @@ var $picMain = $('.pic-container');
 var $picList = $('.picture-list');
 var $singlePic = $('.picture-view');
 var $header = $('.heading');
-var albumButtons = $('.album-button');
-var picClick = $('.pic-click');
+var $albumButtons = $('.album-button');
+var $picClick = '';
 
 var tileHTML = '<li><img src=""/><h4 class="label"></h4></li>';
 var gapHTML = '<div class="gap"></div>';
@@ -15,6 +15,7 @@ var mainHTML = '<section class=""></section>';
 var target;
 var targetSrc;
 var currentAlbumIndex;
+var albumIndex;
 
 var $body = $('body');
 var renders = [];
@@ -60,7 +61,7 @@ $(document).ready(function() {
         data.forEach(function(album, i, arr) {
             if (targetSrc === data[i].albumPics[0].path) {
 
-                currentAlbumIndex = i;
+                // currentAlbumIndex = i;
 
                 $header.text(data[i].albumName);
                 $albumMain.addClass('hide');
@@ -84,6 +85,10 @@ $(document).ready(function() {
                     $picThumb.addClass('grid-item');
                     $picThumb.addClass('pic-click');
                     // $picThumb.addClass('tile');
+
+                    $picClick = $('.pic-click');
+
+                    $picThumb.on('click', clickPic);
 
                     $picList.append($picThumb);
 
@@ -116,7 +121,8 @@ $(document).ready(function() {
     }); //end albumRender
 
     //album sidebar navigation (copying almost the entirety of albumRender, because I couldn't get it to work as an independent function for some reason)
-    albumButtons.on('click', function albumRender(evt) {
+    function albumClick() {
+    $albumButtons.on('click', function albumRender(evt) {
           target = evt.target.value;
           data.forEach(function(album, i, arr) {
               if (target === data[i].albumName) {
@@ -141,6 +147,10 @@ $(document).ready(function() {
                       $picThumb.addClass('show');
                       $picThumb.addClass('grid-item');
                       $picThumb.addClass('pic-click');
+
+                      $picClick = $('.pic-click');
+
+                      $picThumb.on('click', clickPic);
                       // $picThumb.addClass('tile');
                       console.log($picThumb);
 
@@ -151,7 +161,6 @@ $(document).ready(function() {
                       } else if ((ib % 3) === 0 && ib !== 0) {
                           $picThumb.addClass('row-first');
                       }
-
 
                       // if (ib%4===0) {
                       //   $picThumb.addClass('omega');
@@ -166,33 +175,48 @@ $(document).ready(function() {
                       $albumButton.addClass('album-button');
                       $sidebar.append($albumButton);
 
+                      $albumButton.on('click', albumClick);
+
                       $sidebar.addClass('sidebar');
 
                       $picMain.append($sidebar);
                   });
               }
           });
-      });//end the sidebar repeat of the entire albumrender function
+      });
+    }//end the sidebar repeat of the entire albumrender function
 
-    picClick.on('click', function picRender(evt) {
+function clickPic() {
+    $picClick.on('click', function picRender(evt) {
         target = evt.target;
         console.log(target);
+
         targetSrc = $(target).attr('src');
-        data[currentAlbumIndex].forEach(function(pic, i, arr) {
-            if (targetSrc === data[i].albumPics[0].path) {
-                $header.text(data[i].albumPics[0].picName);
+
+        var srcArray = String(targetSrc).split('');
+        //remember to put new albums in their own folders following the album1/album2 pattern, also would need to redo this if more than 9 albums
+        albumIndex = (Number(srcArray[15])-1);
+        console.log(albumIndex);
+
+        data[albumIndex].albumPics.forEach(function(pic, i, arr) {
+            if (targetSrc === data[albumIndex].albumPics[i].path) {
+                $header.text(data[albumIndex].albumPics[i].picName);
                 $picMain.addClass('hide');
                 $picMain.removeClass('show');
 
                 $singlePic.addClass('show');
                 $singlePic.removeClass('hide');
 
-                renders[1] = data[ia].albumPics[ib].picName;
+                renders[1] = data[albumIndex].albumPics[i].picName;
 
                 var $fullPic = $(pictureHTML);
-                $fullPic.children('img').attr('src', data[ia].albumPics[ib].path);
-                $fullPic.children('h5').text(data[ia].albumPics[ib].caption);
-                $fullPic.children('input').attr('value', ('Back to ' + data[ia].albumName));
+                $fullPic.children('img').attr('src', data[albumIndex].albumPics[i].path);
+                $fullPic.children('h5').text(data[albumIndex].albumPics[i].caption);
+                $fullPic.children('input').attr('value', ('Back to ' + data[albumIndex].albumName));
+                $fullPic.children('input').addClass('album-button');
+
+                $albumButtons = $('.album-button');
+                $albumButtons.on('click', albumClick);
 
                 $fullPic.addClass('show');
                 $singlePic.append($fullPic);
@@ -201,6 +225,7 @@ $(document).ready(function() {
             }
         });
     });
+  }
 
 
 
